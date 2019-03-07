@@ -1,25 +1,80 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: "contact",
+      subscriber: "",
+      number: "",
+      subscribers: []
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    this.setState({
+      subscriber: "",
+      number: "",
+      subscribers: [
+        ...this.state.subscribers,
+        this.state.subscriber,
+        this.state.number
+      ]
+    });
+  }
+
+  handleDelete(val, e) {
+    e.preventDefault();
+    let contacts = [...this.state.subscribers];
+    contacts.filter((contact, idx) => {
+      if (idx === val) {
+        contacts.splice(idx, 1);
+      }
+    });
+    this.setState({ subscribers: [...contacts] });
+  }
+
+  handleChange = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+
   render() {
+    const { subscriber, number, subscribers } = this.state;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            value={subscriber}
+            placeholder="Enter  Name Here"
+            onChange={this.handleChange}
+            name="subscriber"
+            required
+          />
+          <input
+            type="tel"
+            value={number}
+            placeholder="Enter Phone Number Here"
+            onChange={this.handleChange}
+            name="number"
+            required
+          />
+
+          <button type="submit">Add Subscriber</button>
+        </form>
+        <div>
+          <ul>
+            {subscribers.map((subscriber, idx) => (
+              <li key={idx} onClick={this.handleDelete.bind(this, idx)}>
+                {subscriber}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     );
   }
