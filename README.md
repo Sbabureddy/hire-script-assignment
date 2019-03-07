@@ -16,7 +16,7 @@ This Project is about HireScript internship asssignment.
 
 ## How To Use
 
-- Just click on this [link](project**:https://phone-directory.netlify.com/.).
+- Just click on this [link](https://phone-directory.netlify.com/.).
 
 #### Installation
 
