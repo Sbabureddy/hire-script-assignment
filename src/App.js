@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import "./App.css";
 
 class App extends Component {
@@ -10,10 +11,8 @@ class App extends Component {
       number: "",
       subscribers: []
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleSubmit(e) {
+  handleSubmit = e => {
     e.preventDefault();
     this.setState({
       subscriber: "",
@@ -24,7 +23,7 @@ class App extends Component {
         this.state.number
       ]
     });
-  }
+  };
 
   handleDelete(val, e) {
     e.preventDefault();
@@ -45,26 +44,38 @@ class App extends Component {
   render() {
     const { subscriber, number, subscribers } = this.state;
     return (
-      <div>
+      <div className="container">
         <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            value={subscriber}
-            placeholder="Enter  Name Here"
-            onChange={this.handleChange}
-            name="subscriber"
-            required
-          />
-          <input
-            type="tel"
-            value={number}
-            placeholder="Enter Phone Number Here"
-            onChange={this.handleChange}
-            name="number"
-            required
-          />
+          <div className="row">
+            <div className="col-md-8">
+              <input
+                type="text"
+                value={subscriber}
+                placeholder="Enter  Name Here"
+                onChange={this.handleChange}
+                name="subscriber"
+                required
+                className="form-control"
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-8">
+              <input
+                type="tel"
+                value={number}
+                placeholder="Enter Phone Number Here"
+                onChange={this.handleChange}
+                name="number"
+                required
+                className="form-control"
+              />
+            </div>
+          </div>
 
-          <button type="submit">Add Subscriber</button>
+          <button className="btn btn-primary" type="submit">
+            Add Subscriber
+          </button>
         </form>
         <div>
           <ul>
